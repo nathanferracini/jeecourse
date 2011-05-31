@@ -48,6 +48,7 @@ public class CalculatorTest{
 	public void subtractTwoSizadString(){
 		Calculator calculator = new CalculatorImpl();	
 		Assert.assertEquals("0", calculator.subtract("12", "12"));
+		Assert.assertEquals("11", calculator.subtract("22", "11"));
 	}
 	
 	

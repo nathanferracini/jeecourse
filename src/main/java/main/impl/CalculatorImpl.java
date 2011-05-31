@@ -7,29 +7,23 @@ public class CalculatorImpl implements Calculator {
 	
 	private HugeNumber leftHugeNumber;
 	private HugeNumber rightHugeNumber;
-	private String finalResult;
+	private HugeNumber finalResult;
 
 	@Override
 	public String add(String left, String right) {
 		leftHugeNumber = new HugeNumber(left);
 		rightHugeNumber = new HugeNumber(right);
-		finalResult = "";
+		finalResult = new HugeNumber();
 		int currentRest = 0;
 		
 		while(leftHugeNumber.hasNext() || rightHugeNumber.hasNext()){
 			Integer partialResult = nextInteger(leftHugeNumber) + nextInteger(rightHugeNumber) + currentRest;
-			finalResult = Integer.toString(partialResult%10).concat(finalResult);
+			finalResult.concatLeft(partialResult%10);
 			currentRest = partialResult / 10;
 		}
-		finalResult = addRestToResult(currentRest, finalResult);
+		finalResult.concatLeft(currentRest);
 		
-		return finalResult;
-	}
-
-	private String addRestToResult(int currentRest, String addResult) {
-		return currentRest == 0 
-			? addResult 
-			: Integer.toString(currentRest).concat(addResult);  
+		return finalResult.justifyRight();
 	}
 
 	private Integer nextInteger(HugeNumber hugeNumber){
@@ -40,21 +34,14 @@ public class CalculatorImpl implements Calculator {
 	public String subtract(String left, String right) {
 		leftHugeNumber = new HugeNumber(left);
 		rightHugeNumber = new HugeNumber(right);
-		finalResult = "";
+		finalResult = new HugeNumber();
 		
 		while(leftHugeNumber.hasNext() || rightHugeNumber.hasNext()){
 			Integer partialResult = nextInteger(leftHugeNumber) - nextInteger(rightHugeNumber);
-			finalResult = Integer.toString(partialResult%10).concat(finalResult);
+			finalResult.concatLeft(partialResult%10); 
 		}
 		
-		finalResult = justifyRight(finalResult);
-		
-		return finalResult;
-	}
-
-	private String justifyRight(String finalResult2) {
-//		while ()
-		return null;
+		return finalResult.justifyRight();
 	}
 	
 }
