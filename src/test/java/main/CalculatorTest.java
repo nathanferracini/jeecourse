@@ -1,8 +1,5 @@
 package main;
-import java.math.BigDecimal;
-
 import junit.framework.Assert;
-import main.Calculator;
 import main.impl.CalculatorImpl;
 
 import org.junit.Test;
@@ -43,7 +40,15 @@ public class CalculatorTest{
 	public void testSubtractOneSizedString(){
 		Calculator calculator = new CalculatorImpl();	
 		Assert.assertEquals("0", calculator.subtract("1", "1"));
-		
+		Assert.assertEquals("4", calculator.subtract("9", "5"));
+		Assert.assertEquals("-4", calculator.subtract("5", "9"));
 	}
+	
+	@Test 
+	public void subtractTwoSizadString(){
+		Calculator calculator = new CalculatorImpl();	
+		Assert.assertEquals("0", calculator.subtract("12", "12"));
+	}
+	
 	
 }

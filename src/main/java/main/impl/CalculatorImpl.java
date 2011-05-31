@@ -1,31 +1,29 @@
 package main.impl;
 
 import main.Calculator;
+import main.HugeNumber;
 
 public class CalculatorImpl implements Calculator {
+	
+	private HugeNumber leftHugeNumber;
+	private HugeNumber rightHugeNumber;
+	private String finalResult;
 
 	@Override
 	public String add(String left, String right) {
-		int currentNumberLeft;
-		int currentNumberRight;
+		leftHugeNumber = new HugeNumber(left);
+		rightHugeNumber = new HugeNumber(right);
+		finalResult = "";
 		int currentRest = 0;
-		String addResult = "";
-		String biggest = left.length() > right.length() ? left : right ;
-		String smallest = left.length() <= right.length() ? left : right ;
-		int countSmallestNumber = smallest.length();
 		
-		for(int i = biggest.length()-1; i>=0; i--){
-			if(--countSmallestNumber >= 0 ){
-				currentNumberRight = intAt(smallest,countSmallestNumber);
-			}else{ currentNumberRight = 0;}
-			currentNumberLeft = intAt(biggest,i);
-			Integer partialResult = currentNumberLeft + currentNumberRight + currentRest;
-			addResult = Integer.toString(partialResult%10).concat(addResult);
+		while(leftHugeNumber.hasNext() || rightHugeNumber.hasNext()){
+			Integer partialResult = nextInteger(leftHugeNumber) + nextInteger(rightHugeNumber) + currentRest;
+			finalResult = Integer.toString(partialResult%10).concat(finalResult);
 			currentRest = partialResult / 10;
 		}
-		addResult = addRestToResult(currentRest, addResult);
+		finalResult = addRestToResult(currentRest, finalResult);
 		
-		return addResult;
+		return finalResult;
 	}
 
 	private String addRestToResult(int currentRest, String addResult) {
@@ -34,18 +32,29 @@ public class CalculatorImpl implements Calculator {
 			: Integer.toString(currentRest).concat(addResult);  
 	}
 
-	private Integer intAt(String string, int posicao){
-		return Integer.parseInt(string.substring(posicao, posicao+1));
+	private Integer nextInteger(HugeNumber hugeNumber){
+		return hugeNumber.hasNext() ? hugeNumber.nextInteger() : 0;
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(Long.MAX_VALUE);
-	}
-
 	@Override
 	public String subtract(String left, String right) {
-		// TODO Auto-generated method stub
-		return "0";
+		leftHugeNumber = new HugeNumber(left);
+		rightHugeNumber = new HugeNumber(right);
+		finalResult = "";
+		
+		while(leftHugeNumber.hasNext() || rightHugeNumber.hasNext()){
+			Integer partialResult = nextInteger(leftHugeNumber) - nextInteger(rightHugeNumber);
+			finalResult = Integer.toString(partialResult%10).concat(finalResult);
+		}
+		
+		finalResult = justifyRight(finalResult);
+		
+		return finalResult;
+	}
+
+	private String justifyRight(String finalResult2) {
+//		while ()
+		return null;
 	}
 	
 }
