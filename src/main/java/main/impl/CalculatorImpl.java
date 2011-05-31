@@ -40,7 +40,6 @@ public class CalculatorImpl implements Calculator {
 			Integer partialResult = nextInteger(leftHugeNumber) - nextInteger(rightHugeNumber);
 			finalResult.concatLeft(partialResult%10); 
 		}
-		
 		return finalResult.justifyRight();
 	}
 	

@@ -21,14 +21,6 @@ public class HugeNumber {
 			: Integer.parseInt(getNumber().substring(index, index + 1));
 	}
 
-	public String getNumber() {
-		return number;
-	}
-
-	public int getIndex() {
-		return index;
-	}
-
 	public boolean hasNext() {
 		return getIndex() > 0;
 	}
@@ -49,5 +41,20 @@ public class HugeNumber {
 		return number.substring(i);
 	}
 	                         
+	public String getNumber() {
+		return number;
+	}
+	
+	public int getIndex() {
+		return index;
+	}
+
+	public boolean isNegative() {
+		int i;
+		for(i = 0; i < number.length() - 1; i++){
+			if(number.charAt(i) == '-')	return true;
+		}
+		return false;
+	}
 
 }

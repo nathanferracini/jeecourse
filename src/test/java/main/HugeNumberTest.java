@@ -1,6 +1,5 @@
 package main;
 
-import junit.framework.Assert;
 import junit.framework.TestCase;
 
 import org.junit.Test;
@@ -10,56 +9,73 @@ public class HugeNumberTest extends TestCase {
 	@Test
 	public void testConstructor(){
 		HugeNumber hugeNumber = new HugeNumber("1");	
-		Assert.assertEquals(1, hugeNumber.getIndex() );
-		Assert.assertEquals("1", hugeNumber.getNumber() );
+		assertEquals(1, hugeNumber.getIndex() );
+		assertEquals("1", hugeNumber.getNumber() );
 	}
 	
 	@Test
 	public void testNextInteger(){
 		HugeNumber hugeNumber = new HugeNumber("1");
-		Assert.assertEquals(Integer.valueOf(1), hugeNumber.nextInteger());
+		assertEquals(Integer.valueOf(1), hugeNumber.nextInteger());
 		
 		hugeNumber = new HugeNumber("21");
-		Assert.assertEquals(Integer.valueOf(1), hugeNumber.nextInteger());
-		Assert.assertEquals(Integer.valueOf(2), hugeNumber.nextInteger());
+		assertEquals(Integer.valueOf(1), hugeNumber.nextInteger());
+		assertEquals(Integer.valueOf(2), hugeNumber.nextInteger());
 		
 		hugeNumber = new HugeNumber("21");
-		Assert.assertEquals(Integer.valueOf(1), hugeNumber.nextInteger());
-		Assert.assertEquals(Integer.valueOf(2), hugeNumber.nextInteger());
-		Assert.assertEquals(null, hugeNumber.nextInteger());
-		Assert.assertEquals(null, hugeNumber.nextInteger());
+		assertEquals(Integer.valueOf(1), hugeNumber.nextInteger());
+		assertEquals(Integer.valueOf(2), hugeNumber.nextInteger());
+		assertEquals(null, hugeNumber.nextInteger());
+		assertEquals(null, hugeNumber.nextInteger());
 	}
 	
 	@Test
 	public void testHasNext(){
 		HugeNumber hugeNumber = new HugeNumber("1");
-		Assert.assertTrue(hugeNumber.hasNext());
+		assertTrue(hugeNumber.hasNext());
 		hugeNumber.nextInteger();
-		Assert.assertFalse(hugeNumber.hasNext());
+		assertFalse(hugeNumber.hasNext());
 	}
 	
 	@Test
-	public void concatLeft(){
+	public void testConcatLeft(){
 		HugeNumber hugeNumber = new HugeNumber();
 		hugeNumber.concatLeft("1");
-		Assert.assertEquals("1",hugeNumber.getNumber());
+		assertEquals("1",hugeNumber.getNumber());
 		hugeNumber.concatLeft(2);
-		Assert.assertEquals("21",hugeNumber.getNumber());
+		assertEquals("21",hugeNumber.getNumber());
 	}
 	
 	@Test
-	public void justifyRight(){
+	public void testJustifyRight(){
 		HugeNumber hugeNumber = new HugeNumber("1");
-		Assert.assertEquals("1",hugeNumber.justifyRight());
+		assertEquals("1",hugeNumber.justifyRight());
 
 		hugeNumber =  new HugeNumber("01");
-		Assert.assertEquals("1",hugeNumber.justifyRight());
+		assertEquals("1",hugeNumber.justifyRight());
 		
 		hugeNumber =  new HugeNumber("001");
-		Assert.assertEquals("1",hugeNumber.justifyRight());
+		assertEquals("1",hugeNumber.justifyRight());
 
 		hugeNumber = new HugeNumber("0");
-		Assert.assertEquals("0",hugeNumber.justifyRight());
+		assertEquals("0",hugeNumber.justifyRight());
 	}
+	
+	@Test
+	public void testIsNegative(){
+		HugeNumber hugeNumber = new HugeNumber("-1");
+		assertTrue(hugeNumber.isNegative());
+		
+		hugeNumber = new HugeNumber("-9586");
+		assertTrue(hugeNumber.isNegative());
+		
+		hugeNumber = new HugeNumber("1");
+		assertFalse(hugeNumber.isNegative());
+		
+		hugeNumber = new HugeNumber("25");
+		assertFalse(hugeNumber.isNegative());
+		
+	}
+	
 	
 }
