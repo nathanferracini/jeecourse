@@ -1,10 +1,11 @@
 package main;
 import junit.framework.Assert;
+import junit.framework.TestCase;
 import main.impl.CalculatorImpl;
 
 import org.junit.Test;
 
-public class CalculatorTest{
+public class CalculatorTest extends TestCase{
 
 	@Test
 	public void testAddOneSizedString(){

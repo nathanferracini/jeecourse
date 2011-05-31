@@ -1,10 +1,11 @@
 package main;
 
 import junit.framework.Assert;
+import junit.framework.TestCase;
 
 import org.junit.Test;
 
-public class HugeNumberTest {
+public class HugeNumberTest extends TestCase {
 
 	@Test
 	public void testConstructor(){
