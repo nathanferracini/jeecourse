@@ -43,8 +43,8 @@ public class HugeNumber {
 	
 	public String justifyRight(){
 		int i;
-		for(i = 0; i >= number.length(); i++){
-			if(number.charAt(i) != '0' || i == number.length())	break;
+		for(i = 0; i < number.length() - 1; i++){
+			if(number.charAt(i) != '0')	break;
 		}
 		return number.substring(i);
 	}
