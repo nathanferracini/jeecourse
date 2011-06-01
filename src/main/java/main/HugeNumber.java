@@ -38,7 +38,8 @@ public class HugeNumber implements Comparable<HugeNumber>{
 		for(i = 0; i < number.length() - 1; i++){
 			if(number.charAt(i) != '0')	break;
 		}
-		return number.substring(i);
+		number = number.substring(i);
+		return getNumber();
 	}
 	                         
 	public String getNumber() {
@@ -83,6 +84,11 @@ public class HugeNumber implements Comparable<HugeNumber>{
 
 	private String removeSignal(String number) {
 		return number.charAt(0) == '-' ? number.substring(1): number;
+	}
+	
+	@Override
+	public String toString() {
+		return getNumber();
 	}
 
 }

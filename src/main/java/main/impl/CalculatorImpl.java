@@ -32,20 +32,50 @@ public class CalculatorImpl implements Calculator {
 	
 	@Override
 	public String subtract(String left, String right) {
+		//It's going to disappear when we start to support signals
+		boolean flagSwitch = false;
+		
 		leftHugeNumber = new HugeNumber(left);
 		rightHugeNumber = new HugeNumber(right);
-		finalResult = new HugeNumber();
-		while(leftHugeNumber.hasNext() || rightHugeNumber.hasNext()){
-			
-			Integer partialResult = nextInteger(leftHugeNumber) - nextInteger(rightHugeNumber);
-			finalResult.concatLeft(partialResult%10); 
+		if(needToSwitchNumbers(leftHugeNumber,rightHugeNumber)){
+			leftHugeNumber = new HugeNumber(right);
+			rightHugeNumber = new HugeNumber(left);
+			flagSwitch = true;
 		}
-		return finalResult.justifyRight();
+		finalResult = new HugeNumber();
+		int penality = 0;
+		
+		while(leftHugeNumber.hasNext() || rightHugeNumber.hasNext()){
+			int currentLeft = nextInteger(leftHugeNumber) - penality;
+			int currentRight = nextInteger(rightHugeNumber);
+			
+			if (currentLeft < currentRight) {
+				if(currentLeft < 0) currentLeft = 9;
+				else currentLeft += 10;
+				penality = 1;
+			}else{
+				penality = 0;
+			}
+			Integer partialResult = currentLeft - currentRight;
+			finalResult.concatLeft(partialResult); 
+		}
+		finalResult.justifyRight();
+		if(flagSwitch)finalResult.concatLeft("-");
+		return finalResult.toString();
+	}
+
+	private boolean needToSwitchNumbers(HugeNumber leftHugeNumber,
+			HugeNumber rightHugeNumber) {
+		return leftHugeNumber.compareTo(rightHugeNumber) == -1;
 	}
 
 	@Override
 	public int compare(String left, String right) {
 		return new HugeNumber(left).compareTo(new HugeNumber(right));
+	}
+	
+	public static void main(String[] args) {
+		new CalculatorImpl().subtract("1", "1");
 	}
 	
 }

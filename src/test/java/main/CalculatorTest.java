@@ -41,6 +41,11 @@ public class CalculatorTest extends TestCase{
 	public void testSubtractOneSizedString(){
 		Calculator calculator = new CalculatorImpl();	
 		Assert.assertEquals("0", calculator.subtract("1", "1"));
+		Assert.assertEquals("-1", calculator.subtract("1", "2"));
+		Assert.assertEquals("1", calculator.subtract("2", "1"));
+		
+		assertEquals("9223372036854775806", calculator.subtract("9223372036854775807", "1"));
+		assertEquals("999999999999999999", calculator.subtract("1000000000000000000", "1"));
 	}
 	
 	@Test
