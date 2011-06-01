@@ -35,12 +35,17 @@ public class CalculatorImpl implements Calculator {
 		leftHugeNumber = new HugeNumber(left);
 		rightHugeNumber = new HugeNumber(right);
 		finalResult = new HugeNumber();
-		
 		while(leftHugeNumber.hasNext() || rightHugeNumber.hasNext()){
+			
 			Integer partialResult = nextInteger(leftHugeNumber) - nextInteger(rightHugeNumber);
 			finalResult.concatLeft(partialResult%10); 
 		}
 		return finalResult.justifyRight();
+	}
+
+	@Override
+	public int compare(String left, String right) {
+		return new HugeNumber(left).compareTo(new HugeNumber(right));
 	}
 	
 }

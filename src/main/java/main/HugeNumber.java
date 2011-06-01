@@ -1,6 +1,6 @@
 package main;
 
-public class HugeNumber {
+public class HugeNumber implements Comparable<HugeNumber>{
 	
 	private String number;
 	private int index;
@@ -50,11 +50,39 @@ public class HugeNumber {
 	}
 
 	public boolean isNegative() {
-		int i;
-		for(i = 0; i < number.length() - 1; i++){
-			if(number.charAt(i) == '-')	return true;
+		return number.charAt(0) == '-';
+	}
+	
+	public boolean isPositive(){
+		return !isNegative();
+	}
+
+	@Override
+	public int compareTo(HugeNumber hugeNumber) {
+		if(isPositive() && hugeNumber.isPositive()) return compareToWithoutSignal(hugeNumber);
+		if(isPositive() && hugeNumber.isNegative()) return 1;
+		if(isNegative() && hugeNumber.isPositive()) return -1;
+		if(isNegative() && hugeNumber.isNegative()) return compareToWithoutSignal(hugeNumber) * -1;
+		throw new RuntimeException("Jesus");
+	}
+	
+	public int compareToWithoutSignal(HugeNumber hugeNumber){
+		String thisNumber = removeSignal(this.justifyRight());
+		String anotherNumber = removeSignal(hugeNumber.justifyRight());
+		if(thisNumber.length() > anotherNumber.length())
+			return 1;
+		if(thisNumber.length() < anotherNumber.length())
+			return -1;
+		for(int i=0; i < thisNumber.length(); i++){
+			if(thisNumber.charAt(i) == hugeNumber.getNumber().charAt(i))
+				continue;
+			return Integer.signum(Character.valueOf(thisNumber.charAt(i)).compareTo(anotherNumber.charAt(i)));
 		}
-		return false;
+		return 0;
+	}
+
+	private String removeSignal(String number) {
+		return number.charAt(0) == '-' ? number.substring(1): number;
 	}
 
 }

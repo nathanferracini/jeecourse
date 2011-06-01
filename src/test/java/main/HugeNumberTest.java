@@ -77,5 +77,55 @@ public class HugeNumberTest extends TestCase {
 		
 	}
 	
+	@Test
+	public void testCompareToWithoutSignal(){
+		HugeNumber hugeNumber = new HugeNumber("1");
+		HugeNumber hugeNumber2 = new HugeNumber("2");
+		assertEquals(-1,hugeNumber.compareToWithoutSignal(hugeNumber2));
+		assertEquals(1,hugeNumber2.compareToWithoutSignal(hugeNumber));
+		
+		hugeNumber = new HugeNumber("-1");
+		hugeNumber2 = new HugeNumber("-2");
+		assertEquals(-1,hugeNumber.compareToWithoutSignal(hugeNumber2));
+		assertEquals(1,hugeNumber2.compareToWithoutSignal(hugeNumber));
+		
+		hugeNumber = new HugeNumber("85");
+		hugeNumber2 = new HugeNumber("-10");
+		assertEquals(1,hugeNumber.compareToWithoutSignal(hugeNumber2));
+		assertEquals(-1,hugeNumber2.compareToWithoutSignal(hugeNumber));
+		
+		hugeNumber = new HugeNumber("45");
+		hugeNumber2 = new HugeNumber("-90");
+		assertEquals(-1,hugeNumber.compareToWithoutSignal(hugeNumber2));
+		assertEquals(1,hugeNumber2.compareToWithoutSignal(hugeNumber));
+		
+		hugeNumber = new HugeNumber("-10");
+		hugeNumber2 = new HugeNumber("10");
+		assertEquals(0,hugeNumber.compareToWithoutSignal(hugeNumber2));
+		assertEquals(0,hugeNumber2.compareToWithoutSignal(hugeNumber));
+		
+	}
+	
+	@Test
+	public void testCompareTo(){
+		HugeNumber hugeNumber = new HugeNumber("1");
+		HugeNumber hugeNumber2 = new HugeNumber("2");
+		assertEquals(-1,hugeNumber.compareTo(hugeNumber2));
+		assertEquals(1,hugeNumber2.compareTo(hugeNumber));
+		
+		hugeNumber = new HugeNumber("1");
+		hugeNumber2 = new HugeNumber("-1");
+		assertEquals(1,hugeNumber.compareTo(hugeNumber2));
+		assertEquals(-1,hugeNumber2.compareTo(hugeNumber));
+		
+		hugeNumber = new HugeNumber("-1");
+		hugeNumber2 = new HugeNumber("-1");
+		assertEquals(0,hugeNumber.compareTo(hugeNumber2));
+		
+		hugeNumber = new HugeNumber("-10");
+		hugeNumber2 = new HugeNumber("-1");
+		assertEquals(-1,hugeNumber.compareTo(hugeNumber2));
+		assertEquals(1,hugeNumber2.compareTo(hugeNumber));
+	}
 	
 }

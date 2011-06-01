@@ -41,15 +41,18 @@ public class CalculatorTest extends TestCase{
 	public void testSubtractOneSizedString(){
 		Calculator calculator = new CalculatorImpl();	
 		Assert.assertEquals("0", calculator.subtract("1", "1"));
-		Assert.assertEquals("4", calculator.subtract("9", "5"));
-		Assert.assertEquals("-4", calculator.subtract("5", "9"));
 	}
 	
-	@Test 
-	public void testSubtractTwoSizadString(){
-		Calculator calculator = new CalculatorImpl();	
-		Assert.assertEquals("0", calculator.subtract("12", "12"));
-		Assert.assertEquals("11", calculator.subtract("22", "11"));
+	@Test
+	public void testCompare(){
+		Calculator calculator = new CalculatorImpl();
+		assertEquals(0,calculator.compare("1","1"));
+		assertEquals(-1,calculator.compare("1","2"));
+		assertEquals(1,calculator.compare("2","1"));
+		
+		assertEquals(0,calculator.compare("-1","-1"));
+		assertEquals(1,calculator.compare("-1","-2"));
+		assertEquals(-1,calculator.compare("-2","-1"));
 	}
 	
 	
