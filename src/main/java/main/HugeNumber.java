@@ -68,20 +68,26 @@ public class HugeNumber implements Comparable<HugeNumber>{
 	}
 	
 	public int compareToWithoutSignal(HugeNumber hugeNumber){
-		String thisNumber = removeSignal(this.justifyRight());
-		String anotherNumber = removeSignal(hugeNumber.justifyRight());
-		if(thisNumber.length() > anotherNumber.length())
-			return 1;
-		if(thisNumber.length() < anotherNumber.length())
-			return -1;
+		String thisNumber = absoluteValue();
+		String anotherNumber = hugeNumber.absoluteValue();
+		if(thisNumber.length() > anotherNumber.length()) return 1;
+		if(thisNumber.length() < anotherNumber.length()) return -1;
+		return compareNumberANumber(thisNumber, anotherNumber);
+	}
+
+	private int compareNumberANumber(String thisNumber, String anotherNumber) {
 		for(int i=0; i < thisNumber.length(); i++){
-			if(thisNumber.charAt(i) == hugeNumber.getNumber().charAt(i))
+			if(thisNumber.charAt(i) == anotherNumber.charAt(i))
 				continue;
 			return Integer.signum(Character.valueOf(thisNumber.charAt(i)).compareTo(anotherNumber.charAt(i)));
 		}
 		return 0;
 	}
-
+	
+	public String absoluteValue(){
+		return removeSignal(justifyRight());
+	}
+	
 	private String removeSignal(String number) {
 		return number.charAt(0) == '-' ? number.substring(1): number;
 	}

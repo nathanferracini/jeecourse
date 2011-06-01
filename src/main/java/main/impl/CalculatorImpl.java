@@ -37,12 +37,12 @@ public class CalculatorImpl implements Calculator {
 		
 		leftHugeNumber = new HugeNumber(left);
 		rightHugeNumber = new HugeNumber(right);
+		finalResult = new HugeNumber();
 		if(needToSwitchNumbers(leftHugeNumber,rightHugeNumber)){
 			leftHugeNumber = new HugeNumber(right);
 			rightHugeNumber = new HugeNumber(left);
 			flagSwitch = true;
 		}
-		finalResult = new HugeNumber();
 		int penality = 0;
 		
 		while(leftHugeNumber.hasNext() || rightHugeNumber.hasNext()){
