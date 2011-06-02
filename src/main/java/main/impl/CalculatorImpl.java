@@ -8,20 +8,20 @@ public class CalculatorImpl implements Calculator {
 	private HugeNumber leftHugeNumber;
 	private HugeNumber rightHugeNumber;
 	private HugeNumber finalResult;
+	private int mathAuxiliar;
 
 	@Override
 	public String add(String left, String right) {
 		leftHugeNumber = new HugeNumber(left);
 		rightHugeNumber = new HugeNumber(right);
 		finalResult = new HugeNumber();
-		int currentRest = 0;
 		
 		while(leftHugeNumber.hasNext() || rightHugeNumber.hasNext()){
-			Integer partialResult = nextInteger(leftHugeNumber) + nextInteger(rightHugeNumber) + currentRest;
+			Integer partialResult = nextInteger(leftHugeNumber) + nextInteger(rightHugeNumber) + mathAuxiliar;
 			finalResult.concatLeft(partialResult%10);
-			currentRest = partialResult / 10;
+			mathAuxiliar = partialResult / 10;
 		}
-		finalResult.concatLeft(currentRest);
+		finalResult.concatLeft(mathAuxiliar);
 		
 		return finalResult.justifyRight();
 	}
@@ -34,27 +34,26 @@ public class CalculatorImpl implements Calculator {
 	public String subtract(String left, String right) {
 		//It's going to disappear when we start to support signals
 		boolean flagSwitch = false;
-		
 		leftHugeNumber = new HugeNumber(left);
 		rightHugeNumber = new HugeNumber(right);
-		finalResult = new HugeNumber();
+		
 		if(needToSwitchNumbers(leftHugeNumber,rightHugeNumber)){
 			leftHugeNumber = new HugeNumber(right);
 			rightHugeNumber = new HugeNumber(left);
 			flagSwitch = true;
 		}
-		int penality = 0;
+		finalResult = new HugeNumber();
 		
 		while(leftHugeNumber.hasNext() || rightHugeNumber.hasNext()){
-			int currentLeft = nextInteger(leftHugeNumber) - penality;
+			int currentLeft = nextInteger(leftHugeNumber) - mathAuxiliar;
 			int currentRight = nextInteger(rightHugeNumber);
 			
 			if (currentLeft < currentRight) {
 				if(currentLeft < 0) currentLeft = 9;
 				else currentLeft += 10;
-				penality = 1;
+				mathAuxiliar = 1;
 			}else{
-				penality = 0;
+				mathAuxiliar = 0;
 			}
 			Integer partialResult = currentLeft - currentRight;
 			finalResult.concatLeft(partialResult); 
